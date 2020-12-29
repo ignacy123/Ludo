@@ -9,15 +9,21 @@ import java.awt.*;
 
 public class Start {
     static JFrame optionsFrame;
+
     public static void startGame(int count) {
         LudoBoard board = new LudoBoard(count);
         LudoView view = new LudoView(board);
         LudoController controller = new LudoController(board, view);
+        view.bindController(controller);
         optionsFrame.setVisible(false);
         controller.start();
     }
 
     public static void main(String[] args) {
+        try {
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+        } catch (Exception ignored) {
+        }
         //pick options
         optionsFrame = new JFrame();
         optionsFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
