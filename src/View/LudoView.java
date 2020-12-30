@@ -198,4 +198,37 @@ public class LudoView {
         executor.execute();
 
     }
+
+    public void finishGame(List<String> finished) {
+        mainFrame.setVisible(false);
+        JFrame endWindow = new JFrame();
+        JPanel container = new JPanel();
+        container.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.insets = new Insets(100, 0, 0, 0);
+        JLabel label = new JLabel("Game over! Leaderboard:");
+        label.setFont(new Font("Ubuntu", Font.BOLD, 60));
+        container.add(label, gbc);
+        for (int i = 0; i <= finished.size(); i++) {
+            gbc = new GridBagConstraints();
+            gbc.gridx = 0;
+            gbc.gridy = i + 1;
+            gbc.insets = new Insets(100, 0, 0, 0);
+            if (i < finished.size()) {
+                label = new JLabel((i + 1) + ". " + finished.get(i));
+            } else {
+                label = new JLabel();
+            }
+            label.setFont(new Font("Ubuntu", Font.BOLD, 50));
+            container.add(label, gbc);
+        }
+        endWindow.setBackground(bgColor);
+        container.setBackground(bgColor);
+        endWindow.add(container);
+        endWindow.setVisible(true);
+        endWindow.pack();
+        endWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    }
 }

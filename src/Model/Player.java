@@ -12,11 +12,11 @@ public class Player {
     String name;
     boolean dummy;
 
-    public Player(Color c, boolean dummy) {
+    public Player(Color c, String name, boolean dummy) {
         this.c = c;
         this.dummy = dummy;
-        pawns = Arrays.asList(44, 43, 42, 41);
-        this.name = c.toString();
+        pawns = Arrays.asList(45, 44, 45, 45);
+        this.name = name;
     }
 
     public Color getColor() {
@@ -33,6 +33,10 @@ public class Player {
 
     public boolean isDummy() {
         return dummy;
+    }
+
+    public void done() {
+        dummy = true;
     }
 
     @Override

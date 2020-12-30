@@ -56,7 +56,9 @@ public class LudoController {
             }
         }
         if (viables.size() == 0) {
-            board.nextPlayer();
+            if (res != 6) {
+                board.nextPlayer();
+            }
             view.publishButton();
         }
         view.updateVisualisation();
@@ -105,6 +107,10 @@ public class LudoController {
         view.updateVisualisation();
         if (!hasKnock && res != 6 && !t.equals(new Tile(5, 5))) {
             board.nextPlayer();
+        }
+        board.checkIfDone();
+        if (board.finished()) {
+            view.finishGame(board.getFinished());
         }
         view.publishButton();
         view.updateVisualisation();
