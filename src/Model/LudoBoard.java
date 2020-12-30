@@ -24,7 +24,6 @@ public class LudoBoard {
     private void fillPlayers(List<String> names) {
         Random random = new Random();
         Collections.rotate(names, random.nextInt(4));
-        //TODO randomize
         players.add(new Player(Color.RED, names.get(0), false));
         players.add(new Player(Color.BLUE, names.get(1), false));
         if (playerCount > 2) {

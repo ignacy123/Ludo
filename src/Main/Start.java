@@ -85,6 +85,7 @@ public class Start {
         optionsFrame.pack();
         updateFields(2);
         optionsFrame.setVisible(true);
+        optionsFrame.setResizable(false);
         playerCount.addItemListener(e -> {
             if (e.getStateChange() == ItemEvent.SELECTED) {
                 Integer i = (Integer) e.getItem();

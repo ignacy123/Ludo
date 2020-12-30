@@ -15,7 +15,7 @@ public class Player {
     public Player(Color c, String name, boolean dummy) {
         this.c = c;
         this.dummy = dummy;
-        pawns = Arrays.asList(45, 44, 45, 45);
+        pawns = Arrays.asList(0, 0, 0, 0);
         this.name = name;
     }
 

@@ -122,6 +122,7 @@ public class LudoView {
         mainFrame.add(container);
         mainFrame.setVisible(true);
         mainFrame.setSize(880, 1080);
+        mainFrame.setResizable(false);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
