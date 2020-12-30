@@ -30,9 +30,18 @@ public class LudoView {
     Color bgColor;
     Random random;
     List<Tile> viableTiles;
+    ImageIcon[] img;
 
     public LudoView(LudoBoard board) {
         this.board = board;
+        img = new ImageIcon[]{
+                new ImageIcon(getClass().getResource("/Img/dice1.jpg")),
+                new ImageIcon(getClass().getResource("/Img/dice2.jpg")),
+                new ImageIcon(getClass().getResource("/Img/dice3.jpg")),
+                new ImageIcon(getClass().getResource("/Img/dice4.jpg")),
+                new ImageIcon(getClass().getResource("/Img/dice5.jpg")),
+                new ImageIcon(getClass().getResource("/Img/dice6.jpg")),
+        };
         random = new Random();
         viableTiles = new ArrayList<>();
         bgColor = new Color(250, 240, 200);
@@ -149,14 +158,14 @@ public class LudoView {
     }
 
     private void updateDice(int a) {
-        dice.setIcon(new ImageIcon(getClass().getResource("/Img/dice" + a + ".jpg")));
+        dice.setIcon(img[a - 1]);
     }
 
     public void publishButton() {
         throwButton.setVisible(true);
     }
 
-    public void executeMove(int i, int res, boolean lastMove) {
+    public void executeMove(int i, int res) {
         int j = 0;
         for (; j < 3; j++) {
             if (board.getPlayer(0).getPawns().get(j) + res == i || (i == 1 && res == 6 && board.getPlayer(0).getPawns().get(j) == 0)) {
@@ -182,11 +191,7 @@ public class LudoView {
                     }
                 }
                 Thread.sleep(1000);
-                if (lastMove) {
-                    board.nextPlayer();
-                }
-                updateVisualisation();
-                publishButton();
+                controller.moveExecuted(boardView.getPawned());
                 return null;
             }
         };

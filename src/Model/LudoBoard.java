@@ -34,9 +34,6 @@ public class LudoBoard {
 
     }
 
-    public int getPlayerCount() {
-        return playerCount;
-    }
 
     public Player getPlayer(int a) {
         return players.get(a);
@@ -58,6 +55,34 @@ public class LudoBoard {
         Collections.rotate(players, 3);
         while (players.get(0).isDummy()) {
             Collections.rotate(players, 3);
+        }
+    }
+
+    public void knockOut(Tile t, Color other) {
+        int ind = 0;
+        while (true) {
+            if (players.get(ind).getColor().equals(other)) {
+                break;
+            }
+            ind++;
+        }
+        Tile beg = new Tile(10, 6);
+        if (ind == 1) {
+            beg = new Tile(6, 0);
+        }
+        if (ind == 2) {
+            beg = new Tile(0, 4);
+        }
+        if (ind == 3) {
+            beg = new Tile(4, 10);
+        }
+        for (int i = 0; i < 4; i++) {
+            Tile beg2 = new Tile(beg.getX(), beg.getY());
+            beg2.addDist(players.get(ind).pawns.get(i)-1);
+            if (beg2.equals(t)) {
+                players.get(ind).pawns.set(i, 0);
+                break;
+            }
         }
     }
 }

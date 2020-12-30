@@ -5,16 +5,18 @@ import Model.Player;
 import Model.Tile;
 
 import java.awt.*;
-import java.util.Collections;
+import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class BoardView extends Panel {
     LudoBoard board;
     int offset = 5;
+    Map<Tile, HashMap<Color, Integer>> pawned;
 
     public BoardView(LudoBoard board) {
         this.board = board;
+        pawned = new HashMap<>();
     }
 
     @Override
@@ -36,11 +38,25 @@ public class BoardView extends Panel {
         g2d.setColor(Color.BLACK);
     }
 
-    public void drawPawn(Graphics2D g2d, Tile tile, Color c) {
+    public void drawPawn(Graphics2D g2d, Tile tile, Color c, boolean stacked) {
         g2d.setStroke(new BasicStroke(4));
+        if (stacked) {
+            g2d.setColor(Color.LIGHT_GRAY);
+        }
         g2d.drawOval(tile.getX() * 80 + offset, tile.getY() * 80 + offset, 80 - 2 * offset, 80 - 2 * offset);
         g2d.setColor(c);
         g2d.fillOval(tile.getX() * 80 + offset, tile.getY() * 80 + offset, 80 - 2 * offset, 80 - 2 * offset);
+        g2d.setColor(Color.BLACK);
+    }
+
+    public void drawSmallPawn(Graphics2D g2d, Tile tile, Color c, boolean stacked, int x, int y) {
+        g2d.setStroke(new BasicStroke(4));
+        if (stacked) {
+            g2d.setColor(Color.LIGHT_GRAY);
+        }
+        g2d.drawOval(tile.getX() * 80 + x * 40, tile.getY() * 80 + y * 40, 40, 40);
+        g2d.setColor(c);
+        g2d.fillOval(tile.getX() * 80 + x * 40, tile.getY() * 80 + y * 40, 40, 40);
         g2d.setColor(Color.BLACK);
     }
 
@@ -104,63 +120,99 @@ public class BoardView extends Panel {
     }
 
     private void drawPawns(Graphics2D g2d) {
+        pawned.clear();
         drawBase(g2d, 10, 10, board.getPlayer(0));
-        drawOut(g2d, new Tile(10, 6), board.getPlayer(0));
+        prepareOut(new Tile(10, 6), board.getPlayer(0));
         drawHome(g2d, new Tile(9, 5), -1, board.getPlayer(0));
         if (!board.getPlayer(1).isDummy()) {
             drawBase(g2d, 10, 1, board.getPlayer(1));
-            drawOut(g2d, new Tile(6, 0), board.getPlayer(1));
+            prepareOut(new Tile(6, 0), board.getPlayer(1));
             drawHome(g2d, new Tile(5, 1), 1, board.getPlayer(1));
         }
         if (!board.getPlayer(2).isDummy()) {
             drawBase(g2d, 1, 1, board.getPlayer(2));
-            drawOut(g2d, new Tile(0, 4), board.getPlayer(2));
+            prepareOut(new Tile(0, 4), board.getPlayer(2));
             drawHome(g2d, new Tile(1, 5), 1, board.getPlayer(2));
         }
         if (!board.getPlayer(3).isDummy()) {
             drawBase(g2d, 1, 10, board.getPlayer(3));
-            drawOut(g2d, new Tile(4, 10), board.getPlayer(3));
+            prepareOut(new Tile(4, 10), board.getPlayer(3));
             drawHome(g2d, new Tile(5, 9), -1, board.getPlayer(3));
         }
+        drawOut(g2d);
     }
 
 
     private void drawBase(Graphics2D g2d, int x, int y, Player player) {
         int count = Collections.frequency(player.getPawns(), 0);
         if (count > 0) {
-            drawPawn(g2d, new Tile(x, y), player.getColor());
+            drawPawn(g2d, new Tile(x, y), player.getColor(), false);
         }
         if (count > 1) {
-            drawPawn(g2d, new Tile(x - 1, y), player.getColor());
+            drawPawn(g2d, new Tile(x - 1, y), player.getColor(), false);
         }
         if (count > 2) {
-            drawPawn(g2d, new Tile(x - 1, y - 1), player.getColor());
+            drawPawn(g2d, new Tile(x - 1, y - 1), player.getColor(), false);
         }
         if (count > 3) {
-            drawPawn(g2d, new Tile(x, y - 1), player.getColor());
+            drawPawn(g2d, new Tile(x, y - 1), player.getColor(), false);
         }
     }
 
-    private void drawOut(Graphics2D g2d, Tile Tile, Player player) {
-        List<Integer> nonZero = player.getPawns().stream().filter(x -> x != 0 && x < 40).sorted().collect(Collectors.toList());
-        for (Integer i : nonZero) {
-            Tile c = new Tile(Tile.getX(), Tile.getY());
-            c.addDist(i-1);
-            drawPawn(g2d, c, player.getColor());
+    private void prepareOut(Tile tile, Player player) {
+        for (int i : player.getPawns().stream().filter(x -> x > 0 && x <= 40).collect(Collectors.toList())) {
+            Tile t = new Tile(tile.getX(), tile.getY());
+            t.addDist(i - 1);
+            if (!pawned.keySet().contains(t)) {
+                pawned.put(t, new HashMap<>());
+            }
+            if (!pawned.get(t).containsKey(player.getColor())) {
+                pawned.get(t).put(player.getColor(), 0);
+            }
+            pawned.get(t).replace(player.getColor(), pawned.get(t).get(player.getColor()) + 1);
+        }
+    }
+
+    private void drawOut(Graphics2D g2d) {
+        for (Tile t : pawned.keySet()) {
+            if (pawned.get(t).size() > 1) {
+                Color c0 = (Color) pawned.get(t).keySet().toArray()[0];
+                drawSmallPawn(g2d, t, c0, pawned.get(t).get(c0)>1, 0, 0);
+                if (pawned.get(t).size() > 1) {
+                    Color c1 = (Color) pawned.get(t).keySet().toArray()[1];
+                    drawSmallPawn(g2d, t, c1, pawned.get(t).get(c1)>1, 1, 1);
+                }
+                if (pawned.get(t).size() > 2) {
+                    Color c2 = (Color) pawned.get(t).keySet().toArray()[2];
+                    drawSmallPawn(g2d, t, c2, pawned.get(t).get(c2)>1, 1, 0);
+                }
+                if (pawned.get(t).size() > 3) {
+                    Color c3 = (Color) pawned.get(t).keySet().toArray()[3];
+                    drawSmallPawn(g2d, t, c3, pawned.get(t).get(c3)>1, 0, 1);
+                }
+            } else {
+                for (Map.Entry<Color, Integer> entry : pawned.get(t).entrySet()) {
+                    if (entry.getValue() > 1) {
+                        drawPawn(g2d, t, entry.getKey(), true);
+                    } else {
+                        drawPawn(g2d, t, entry.getKey(), false);
+                    }
+                }
+            }
         }
     }
 
     private void drawHome(Graphics2D g2d, Tile Tile, int orientation, Player player) {
-        List<Integer> nonZero = player.getPawns().stream().filter(x -> x >= 40 && x < 44).sorted().collect(Collectors.toList());
+        List<Integer> nonZero = player.getPawns().stream().filter(x -> x > 40 && x <= 44).sorted().collect(Collectors.toList());
         for (Integer i : nonZero) {
-            i = i - 40;
+            i = i - 41;
             Tile c;
             if (Tile.getX() == 5) {
                 c = new Tile(Tile.getX(), Tile.getY() + orientation * i);
             } else {
                 c = new Tile(Tile.getX() + orientation * i, Tile.getY());
             }
-            drawPawn(g2d, c, player.getColor());
+            drawPawn(g2d, c, player.getColor(), false);
         }
     }
 
@@ -170,4 +222,7 @@ public class BoardView extends Panel {
         }
     }
 
+    public Map<Tile, HashMap<Color, Integer>> getPawned() {
+        return pawned;
+    }
 }
