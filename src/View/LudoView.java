@@ -136,7 +136,7 @@ public class LudoView {
     }
 
     private void rollTheDice() {
-        SwingWorker<Void, Integer> worker = new SwingWorker<Void, Integer>() {
+        SwingWorker<Void, Integer> worker = new SwingWorker<>() {
             @Override
             protected Void doInBackground() throws Exception {
                 int res = 1;
@@ -174,7 +174,7 @@ public class LudoView {
             }
         }
         int workerJ = j;
-        int workerRes = res;
+
         SwingWorker<Void, Integer> executor = new SwingWorker<>() {
             @Override
             protected Void doInBackground() throws Exception {
@@ -183,7 +183,7 @@ public class LudoView {
                     board.getPlayer(0).getPawns().set(workerJ, board.getPlayer(0).getPawns().get(workerJ) + 1);
                     updateVisualisation();
                 } else {
-                    int counter = workerRes;
+                    int counter = res;
                     while (counter > 0) {
                         counter--;
                         Thread.sleep(200);
@@ -228,8 +228,8 @@ public class LudoView {
         endWindow.setBackground(bgColor);
         container.setBackground(bgColor);
         endWindow.add(container);
-        endWindow.setVisible(true);
         endWindow.pack();
+        endWindow.setVisible(true);
         endWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 }

@@ -63,7 +63,7 @@ public class Start {
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.insets = new Insets(20, 0, 0, 0);
-        JComboBox playerCount = new JComboBox(new Integer[]{2, 3, 4});
+        JComboBox<Integer> playerCount = new JComboBox(new Integer[]{2, 3, 4});
         container.add(playerCount, gbc);
         for (int i = 0; i < 4; i++) {
             gbc.gridx = 0;

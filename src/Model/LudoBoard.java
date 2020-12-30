@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 public class LudoBoard {
     int playerCount;
@@ -92,7 +91,7 @@ public class LudoBoard {
     }
 
     public void checkIfDone() {
-        int notFinished = players.get(0).getPawns().stream().filter(x -> x != 45).collect(Collectors.toList()).size();
+        int notFinished = (int) players.get(0).getPawns().stream().filter(x -> x != 45).count();
         if (notFinished > 0) {
             return;
         }
@@ -104,7 +103,7 @@ public class LudoBoard {
     }
 
     public boolean finished() {
-        return players.stream().filter(x -> !x.isDummy()).collect(Collectors.toList()).size() == 0;
+        return players.stream().filter(x -> !x.isDummy()).count() == 0;
     }
 
     public List<String> getFinished() {
