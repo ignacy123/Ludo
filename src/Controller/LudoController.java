@@ -28,7 +28,7 @@ public class LudoController {
     }
 
     public void diceRolled(int res) {
-        System.out.println("dice rolled: " + res);
+        //System.out.println("dice rolled: " + res);
         this.res = res;
         board.clearViableTiles();
         viables.clear();
@@ -67,7 +67,7 @@ public class LudoController {
     public void mouseClicked(Point p) {
         t = getViable(p);
         if (t != null) {
-            System.out.println("clicked on viable");
+            //System.out.println("clicked on viable");
             board.clearViableTiles();
             int i = viables.get(t);
             viables.clear();

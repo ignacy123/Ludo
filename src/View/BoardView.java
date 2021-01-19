@@ -32,9 +32,9 @@ public class BoardView extends Panel {
     public void drawTile(Graphics2D g2d, Tile t, int border, Color c) {
         g2d.setStroke(new BasicStroke(1));
         g2d.setColor(Color.BLACK);
-        g2d.drawRect(t.getLeft(), t.getTop(), 80, 80);
+        g2d.drawRect(t.getLeft(), t.getTop(), 50, 50);
         g2d.setColor(c);
-        g2d.fillRect(t.getLeft() + border, t.getTop() + border, 80 - border, 80 - border);
+        g2d.fillRect(t.getLeft() + border, t.getTop() + border, 50 - border, 50 - border);
         g2d.setColor(Color.BLACK);
     }
 
@@ -43,9 +43,9 @@ public class BoardView extends Panel {
         if (stacked) {
             g2d.setColor(Color.LIGHT_GRAY);
         }
-        g2d.drawOval(tile.getX() * 80 + offset, tile.getY() * 80 + offset, 80 - 2 * offset, 80 - 2 * offset);
+        g2d.drawOval(tile.getX() * 50 + offset, tile.getY() * 50 + offset, 50 - 2 * offset, 50 - 2 * offset);
         g2d.setColor(c);
-        g2d.fillOval(tile.getX() * 80 + offset, tile.getY() * 80 + offset, 80 - 2 * offset, 80 - 2 * offset);
+        g2d.fillOval(tile.getX() * 50 + offset, tile.getY() * 50 + offset, 50 - 2 * offset, 50 - 2 * offset);
         g2d.setColor(Color.BLACK);
     }
 
@@ -54,18 +54,18 @@ public class BoardView extends Panel {
         if (stacked) {
             g2d.setColor(Color.LIGHT_GRAY);
         }
-        g2d.drawOval(tile.getX() * 80 + x * 40, tile.getY() * 80 + y * 40, 40, 40);
+        g2d.drawOval(tile.getX() * 50 + x * 40, tile.getY() * 50 + y * 40, 40, 40);
         g2d.setColor(c);
-        g2d.fillOval(tile.getX() * 80 + x * 40, tile.getY() * 80 + y * 40, 40, 40);
+        g2d.fillOval(tile.getX() * 50 + x * 40, tile.getY() * 50 + y * 40, 40, 40);
         g2d.setColor(Color.BLACK);
     }
 
     public void drawSmallerTile(Graphics2D g2d, int x, int y, int border, Color c) {
         g2d.setStroke(new BasicStroke(1));
         g2d.setColor(Color.BLACK);
-        g2d.drawRect(x * 80, y * 80, 80, 80);
+        g2d.drawRect(x * 50, y * 50, 50, 50);
         g2d.setColor(c);
-        g2d.fillRect((x * 80) + border, (y * 80) + border, 80 - 2 * border, 80 - 2 * border);
+        g2d.fillRect((x * 50) + border, (y * 50) + border, 50 - 2 * border, 50 - 2 * border);
         g2d.setColor(Color.BLACK);
     }
 

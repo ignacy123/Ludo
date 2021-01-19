@@ -53,6 +53,8 @@ public class LudoView {
         labelContainer = new JPanel();
         dice = new JLabel();
         mainFrame = new JFrame("Ludo");
+        mainFrame.setSize(550, 700);
+        mainFrame.setResizable(false);
         container = new JPanel();
         GridBagConstraints gbc = new GridBagConstraints();
         buttonContainer = new JPanel();
@@ -60,7 +62,7 @@ public class LudoView {
         throwButton = new JButton("Roll the dice");
 
         boardView.setBackground(bgColor);
-        boardView.setPreferredSize(new Dimension(880, 880));
+        boardView.setPreferredSize(new Dimension(550, 550));
         boardView.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -69,7 +71,7 @@ public class LudoView {
         });
 
         turnPanel.setBackground(bgColor);
-        turnPanel.setPreferredSize(new Dimension(880, 150));
+        turnPanel.setPreferredSize(new Dimension(550, 100));
         turnPanel.setLayout(new BoxLayout(turnPanel, BoxLayout.X_AXIS));
 
         dice.setIcon(new ImageIcon(getClass().getResource("/Img/dice1.jpg")));
@@ -77,8 +79,8 @@ public class LudoView {
 
         diceContainer.setLayout(new BorderLayout());
         diceContainer.setBackground(bgColor);
-        diceContainer.setPreferredSize(new Dimension(220, 150));
-        diceContainer.setMaximumSize(new Dimension(220, 150));
+        diceContainer.setPreferredSize(new Dimension(165, 100));
+        diceContainer.setMaximumSize(new Dimension(165, 100));
         diceContainer.add(dice, BorderLayout.CENTER);
 
         throwButton.setFont(new Font("Ubuntu", Font.BOLD, 16));
@@ -89,8 +91,8 @@ public class LudoView {
 
         buttonContainer.setLayout(new GridBagLayout());
         buttonContainer.setBackground(bgColor);
-        buttonContainer.setPreferredSize(new Dimension(220, 150));
-        buttonContainer.setMaximumSize(new Dimension(220, 150));
+        buttonContainer.setPreferredSize(new Dimension(137, 100));
+        buttonContainer.setMaximumSize(new Dimension(137, 100));
         buttonContainer.add(throwButton);
 
         throwContainer.setBackground(bgColor);
@@ -109,8 +111,8 @@ public class LudoView {
         labelContainer.setLayout(new GridBagLayout());
         labelContainer.add(nameLabel2, gbc);
         labelContainer.add(nameLabel);
-        labelContainer.setMaximumSize(new Dimension(440, 150));
-        labelContainer.setPreferredSize(new Dimension(440, 150));
+        labelContainer.setMaximumSize(new Dimension(275, 100));
+        labelContainer.setPreferredSize(new Dimension(275, 100));
 
         turnPanel.add(labelContainer);
         turnPanel.add(throwContainer);
@@ -121,8 +123,6 @@ public class LudoView {
 
         mainFrame.add(container);
         mainFrame.setVisible(true);
-        mainFrame.setSize(880, 1080);
-        mainFrame.setResizable(false);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 

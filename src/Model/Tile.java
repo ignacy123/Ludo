@@ -14,10 +14,10 @@ public class Tile {
     public Tile(int x, int y) {
         this.x = x;
         this.y = y;
-        top = y * 80;
-        bottom = (y + 1) * 80;
-        left = x * 80;
-        right = (x + 1) * 80;
+        top = y * 50;
+        bottom = (y + 1) * 50;
+        left = x * 50;
+        right = (x + 1) * 50;
     }
 
     public boolean contains(Point p) {
@@ -121,10 +121,10 @@ public class Tile {
                 continue;
             }
         }
-        top = y * 80;
-        bottom = (y + 1) * 80;
-        left = x * 80;
-        right = (x + 1) * 80;
+        top = y * 50;
+        bottom = (y + 1) * 50;
+        left = x * 50;
+        right = (x + 1) * 50;
 
     }
 

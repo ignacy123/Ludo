@@ -36,7 +36,7 @@ public class Start {
     }
 
     public static void main(String[] args) {
-        font = new Font("Ubuntu", Font.BOLD, 50);
+        font = new Font("Ubuntu", Font.BOLD, 35);
         bgColor = new Color(250, 240, 200);
         //pick options
         labels = new JLabel[]{
@@ -62,12 +62,18 @@ public class Start {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.insets = new Insets(20, 0, 0, 0);
+        JLabel infoLabel = new JLabel("Player count: ");
+        infoLabel.setFont(font);
+        container.add(infoLabel, gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.insets = new Insets(15, 0, 0, 0);
         JComboBox<Integer> playerCount = new JComboBox(new Integer[]{2, 3, 4});
+        playerCount.setFont(font);
         container.add(playerCount, gbc);
         for (int i = 0; i < 4; i++) {
             gbc.gridx = 0;
-            gbc.gridy = 1 + 2 * i;
+            gbc.gridy = 2 + 2 * i;
             container.add(labels[i], gbc);
             gbc.gridy++;
             container.add(fields[i], gbc);
@@ -77,7 +83,7 @@ public class Start {
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(button);
         gbc.gridx = 0;
-        gbc.gridy = 9;
+        gbc.gridy = 10;
         container.add(buttonPanel, gbc);
         container.setBackground(bgColor);
         optionsFrame.setBackground(bgColor);
