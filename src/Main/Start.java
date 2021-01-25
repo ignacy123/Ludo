@@ -36,7 +36,7 @@ public class Start {
     }
 
     public static void main(String[] args) {
-        font = new Font("Ubuntu", Font.BOLD, 35);
+        font = new Font("Ubuntu", Font.BOLD, 20);
         bgColor = new Color(250, 240, 200);
         //pick options
         labels = new JLabel[]{

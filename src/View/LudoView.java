@@ -53,7 +53,7 @@ public class LudoView {
         labelContainer = new JPanel();
         dice = new JLabel();
         mainFrame = new JFrame("Ludo");
-        mainFrame.setSize(550, 700);
+        mainFrame.setSize(440, 590);
         mainFrame.setResizable(false);
         container = new JPanel();
         GridBagConstraints gbc = new GridBagConstraints();
@@ -62,7 +62,7 @@ public class LudoView {
         throwButton = new JButton("Roll the dice");
 
         boardView.setBackground(bgColor);
-        boardView.setPreferredSize(new Dimension(550, 550));
+        boardView.setPreferredSize(new Dimension(440, 440));
         boardView.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -71,7 +71,7 @@ public class LudoView {
         });
 
         turnPanel.setBackground(bgColor);
-        turnPanel.setPreferredSize(new Dimension(550, 100));
+        turnPanel.setPreferredSize(new Dimension(440, 100));
         turnPanel.setLayout(new BoxLayout(turnPanel, BoxLayout.X_AXIS));
 
         dice.setIcon(new ImageIcon(getClass().getResource("/Img/dice1.jpg")));
