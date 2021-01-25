@@ -54,9 +54,9 @@ public class BoardView extends Panel {
         if (stacked) {
             g2d.setColor(Color.LIGHT_GRAY);
         }
-        g2d.drawOval(tile.getX() * 50 + x * 40, tile.getY() * 50 + y * 40, 40, 40);
+        g2d.drawOval(tile.getX() * 50 + x * 25, tile.getY() * 50 + y * 25, 25, 25);
         g2d.setColor(c);
-        g2d.fillOval(tile.getX() * 50 + x * 40, tile.getY() * 50 + y * 40, 40, 40);
+        g2d.fillOval(tile.getX() * 50 + x * 25, tile.getY() * 50 + y * 25, 25, 25);
         g2d.setColor(Color.BLACK);
     }
 
